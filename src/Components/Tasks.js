@@ -1,10 +1,10 @@
 import { View, Text } from "react-native";
 
-export default Todas = () => {
+export default Tasks = () => {
     return (
         <View>
             <Text>
-                Tela Todas Tarefas
+                
             </Text>
         </View>
     );
