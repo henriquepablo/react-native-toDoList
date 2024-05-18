@@ -35,7 +35,7 @@ export default App = () => {
   }
 
   return (
-    <MyContext.Provider value={{backgroundColor, setBackgroundColor}}>
+    <MyContext.Provider value={{backgroundColor, setBackgroundColor, isDark}}>
       <NavigationContainer>
         <drawer.Navigator>
           

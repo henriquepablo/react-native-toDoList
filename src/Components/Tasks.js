@@ -1,16 +1,23 @@
-import { Button, Container } from "../styles/TaksStyle";
+import { Container, ContainerDay, Title, TitleDesc } from "../styles/TaksStyle";
 import { useContext } from "react";
 import MyContext from "../Context";
-import { Text, View } from "react-native";
-
 
 export default Tasks = () => {
 
-    const {backgroundColor} = useContext(MyContext);
+    const {backgroundColor, isDark} = useContext(MyContext);
 
     return (
         <Container background={backgroundColor}>
-            
+
+            <ContainerDay >
+                <Title TitleDay={isDark} > 
+                    Segunda - Feira
+                </Title>
+
+                <TitleDesc TitleDesc={isDark}>
+                    Suas tarefas de hoje
+                </TitleDesc>
+            </ContainerDay>
         </Container>
     );
 }
