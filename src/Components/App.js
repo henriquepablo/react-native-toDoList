@@ -37,7 +37,12 @@ export default App = () => {
   return (
     <MyContext.Provider value={{backgroundColor, setBackgroundColor, isDark}}>
       <NavigationContainer>
-        <drawer.Navigator>
+        <drawer.Navigator
+          screenOptions={{
+            drawerStyle: {backgroundColor: isDark == false ? '#C5D4FF' : '#181A33' ,}, 
+            drawerActiveBackgroundColor: isDark == false ? '#acc1ff' : '#3F414D',
+            drawerLabelStyle: {color: isDark == false ? '#000' : '#fff'}
+          }}>
           
           <drawer.Screen name="Tarefas" component={Tarefas} 
             options={{
