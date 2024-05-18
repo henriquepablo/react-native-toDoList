@@ -1,6 +1,7 @@
 import { Container, ContainerDay, Title, TitleDesc } from "../styles/TaksStyle";
 import { useContext } from "react";
 import MyContext from "../Context";
+import CardTasks from "./CardTasks";
 
 export default Tasks = () => {
 
@@ -17,6 +18,8 @@ export default Tasks = () => {
                 <TitleDesc TitleDesc={isDark}>
                     Suas tarefas de hoje
                 </TitleDesc>
+
+                <CardTasks/>
             </ContainerDay>
         </Container>
     );
