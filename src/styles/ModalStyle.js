@@ -1,4 +1,5 @@
 import styled from "styled-components/native";
+import { StyleSheet } from "react-native";
 
 export const ContainerModal = styled.View`
     flex: 1;
@@ -16,7 +17,7 @@ export const ViewTextInput = styled.View`
 `
 export const Input = styled.TextInput`
     background-color: ${(props) => props.backgroundInput ? '#3F414D' : '#fff'};
-    width: 232px;
+    width: 250px;
     margin: 33px 14px;
     border-radius: 10px;
     color: ${(props) => props.colorLetter ? '#fff' : '#000'};
@@ -24,3 +25,10 @@ export const Input = styled.TextInput`
     padding: 10px;
 `
 export const ViewTouchableModal = styled.TouchableOpacity``;
+
+export const shadowInput = StyleSheet.create({
+    shadowColor: '#000',
+    shadowOffset: {width: 7, height: 7},
+    shadowOpacity: 0.7,
+    shadowRadius: 1,
+});
