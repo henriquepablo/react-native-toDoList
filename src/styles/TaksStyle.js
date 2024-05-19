@@ -18,3 +18,16 @@ export const TitleDesc = styled.Text`
     font-size: 17px;
     margin-top: 22px;
 `
+export const ViewModalBtn = styled.View`
+    background-color: ${(props) => props.background ? '#3F414D' : '#fff'};
+    width: 50px;
+    height: 50px;
+    border-radius: 50px;
+    justify-content: center;
+    align-items: center;    
+` 
+export const ViewTouchable = styled.TouchableOpacity`
+    position: absolute;
+    bottom: 26px;
+    align-self: center;
+`
