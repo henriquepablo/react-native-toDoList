@@ -3,6 +3,7 @@ import { ViewCard, TextTasks } from "../styles/CardStyle";
 import { useContext, useState } from "react";
 import MyContext from "../Context";
 import DropShadow from "react-native-drop-shadow";
+import { styleCard } from "../styles/CardStyle";
 
 
 export default Card = () => {
@@ -12,7 +13,7 @@ export default Card = () => {
     const {isDark} = useContext(MyContext);
     
     return (
-        <DropShadow >
+        <DropShadow style={styleCard}>
             <ViewCard backgroundCard={isDark}> 
                 <Switch onValueChange={(value) => setIsEnabled(value)} value={isEnabled} />
                 
