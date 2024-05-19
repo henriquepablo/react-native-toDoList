@@ -2,12 +2,14 @@ import { Container, ContainerDay, Title, TitleDesc, ViewModalBtn, ViewTouchable 
 import { useContext, useState } from "react";
 import MyContext from "../Context";
 import CardTasks from "./CardTasks";
-import { Image} from "react-native";
+import { Image, Modal, View} from "react-native";
+import MyModal from "./Modal";
 
 export default Tasks = () => {
 
     const {backgroundColor, isDark} = useContext(MyContext);
-    const [imgBtn, setImgBtn] = useState(require('../img/add.png'));
+    const [openModal, setOpenModal] = useState(false);
+
 
     return (
         <Container background={backgroundColor}>
@@ -24,12 +26,15 @@ export default Tasks = () => {
 
             <CardTasks/>
 
-            <ViewTouchable>
+            <ViewTouchable onPress={() => setOpenModal(true)}>
                 <ViewModalBtn background={isDark}>
                     <Image source={isDark == true ? require('../img/add.png') : require('../img/addBlack.png')} />
                 </ViewModalBtn >
             </ViewTouchable>
 
+            <Modal animationType="slide" visible={openModal} transparent={true}>
+                <MyModal close={() => setOpenModal(false)} />
+            </Modal>
         </Container>
     );
 }
