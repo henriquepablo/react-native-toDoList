@@ -18,9 +18,10 @@ export default Tasks = () => {
                 <TitleDesc TitleDesc={isDark}>
                     Suas tarefas de hoje
                 </TitleDesc>
-
-                <CardTasks/>
             </ContainerDay>
+
+            <CardTasks/>
+
         </Container>
     );
 }

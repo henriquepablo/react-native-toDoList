@@ -6,9 +6,9 @@ export const ViewCard = styled.View`
     justify-content: space-around;
     align-items: center;
     flex-direction: row;
-    width: 95%;
+    width: 100vw;
     height: 70px;
-    margin: 32px 0px 32px 0px;
+    margin: 0px 26px 20px;
     border-radius: 10px;
 `
 export const TextTasks = styled.Text`
