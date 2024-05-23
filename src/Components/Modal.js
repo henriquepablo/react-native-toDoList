@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { Image } from "react-native";
 
 import { ViewModal, ContainerModal, ViewTextInput, Input, ViewTouchableModal} from "../styles/ModalStyle";
@@ -12,6 +12,26 @@ export default MyModal = (props) => {
 
     const {isDark} = useContext(MyContext);
 
+    const [tasks, setTasks] = useState('');
+
+    const createTask = () => {
+        fetch('http://10.0.2.2:8080/tasks', {
+            method: 'POST',
+            headers: {
+                "Accept": "application/json",
+                "Content-Type": "application/json" 
+            },
+            body: JSON.stringify({
+            taks: tasks,})
+        })
+        .then(response => response.json())
+        .then(json => {
+            console.log(json);
+            alert('Tarefa cadastrada');
+        })
+        .catch(err => console.log(err));
+    }
+
     return (
         <ContainerModal>
             <ViewModal background={isDark}>
@@ -19,10 +39,10 @@ export default MyModal = (props) => {
                 <ViewTextInput >
                     
                     <DropShadow style={shadowInput}>
-                        <Input colorLetter={isDark} backgroundInput={isDark}/>
+                        <Input colorLetter={isDark} backgroundInput={isDark} onChangeText={value => setTasks(value)} />
                     </DropShadow>
                     
-                    <ViewTouchableModal >
+                    <ViewTouchableModal onPress={createTask}>
                         <ViewModalBtn background={isDark}>
                             <Image source={isDark == true ? require('../img/add.png') : require('../img/addBlack.png')} />
                         </ViewModalBtn >
