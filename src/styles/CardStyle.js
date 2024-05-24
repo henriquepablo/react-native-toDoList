@@ -6,7 +6,6 @@ export const ViewCard = styled.View`
     justify-content: space-around;
     align-items: center;
     flex-direction: row;
-    width: 100vw;
     height: 70px;
     margin: 0px 26px 20px;
     border-radius: 10px;
@@ -15,6 +14,7 @@ export const TextTasks = styled.Text`
     color: ${(props) => props.text ? '#fff' : '#000'};
     font-size: 16px;
     text-decoration: ${(props) => props.complete ? 'line-through' : 'none'};
+    width: 110px;
 `
 export const styleCard = StyleSheet.create({
     shadowColor: '#000',
