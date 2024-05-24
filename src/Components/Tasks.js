@@ -1,15 +1,28 @@
 import { Container, ContainerDay, Title, TitleDesc, ViewModalBtn, ViewTouchable } from "../styles/TaksStyle";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import MyContext from "../Context";
 import CardTasks from "./CardTasks";
-import { Image, Modal, View} from "react-native";
+import { Image, Modal, FlatList} from "react-native";
 import MyModal from "./Modal";
 
 export default Tasks = () => {
 
     const {backgroundColor, isDark} = useContext(MyContext);
     const [openModal, setOpenModal] = useState(false);
+    const [listTasks, setListTasks] = useState([]);
 
+    useEffect(() => {
+        loadTasks();
+    },[listTasks]);
+
+    const loadTasks = () => {
+        fetch('http://10.0.2.2:8080/tasks')
+        .then(response => response.json())
+        .then(json => {
+            setListTasks(json)
+        })
+        .catch(err => console.log(err))
+    }
 
     return (
         <Container background={backgroundColor}>
@@ -24,8 +37,12 @@ export default Tasks = () => {
                 </TitleDesc>
             </ContainerDay>
 
-            <CardTasks/>
-
+            <FlatList 
+                data={listTasks}
+                keyExtractor={(item) => item.id}
+                renderItem={({item}) => <CardTasks data={item} />}
+            />
+                        
             <ViewTouchable onPress={() => setOpenModal(true)}>
                 <ViewModalBtn background={isDark}>
                     <Image source={isDark == true ? require('../img/add.png') : require('../img/addBlack.png')} />

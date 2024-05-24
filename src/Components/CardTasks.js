@@ -6,7 +6,7 @@ import DropShadow from "react-native-drop-shadow";
 import { styleCard } from "../styles/CardStyle";
 
 
-export default Card = () => {
+export default Card = (props) => {
 
     const [isEnabled, setIsEnabled] = useState(false);
 
@@ -18,10 +18,10 @@ export default Card = () => {
                 <Switch onValueChange={(value) => setIsEnabled(value)} value={isEnabled} />
                 
                 <TextTasks text={isDark} complete={isEnabled}>
-                    Estudar React Native
+                    {props.data.taks}
                 </TextTasks>
 
-                <TouchableOpacity>
+                <TouchableOpacity onPress={() => console.log(props.data.id)}>
                     <Image source={require('../img/edit.png')} />
                 </TouchableOpacity>
                 
