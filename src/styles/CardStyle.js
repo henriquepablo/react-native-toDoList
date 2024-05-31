@@ -7,8 +7,8 @@ export const ViewCard = styled.View`
     align-items: center;
     flex-direction: row;
     height: 70px;
-    margin: 0px 26px 20px;
-    border-radius: 10px;
+    margin: 0px 10px 20px 10px;
+    border-radius: 5px;
 `
 export const TextTasks = styled.Text`
     color: ${(props) => props.text ? '#fff' : '#000'};
