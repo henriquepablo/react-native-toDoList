@@ -4,12 +4,13 @@ import { Container, Input, Link, LinkText, Logo, SubmitButton, SubmitText, input
 import { useNavigation } from "@react-navigation/native";
 import { useState } from "react";
 
-const SignIn = () => {
+const SignUp = () => {
 
     const navigation = useNavigation();
 
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const [name, setName] = useState('');
 
     return(
 
@@ -19,6 +20,14 @@ const SignIn = () => {
 
             <Logo source={require('../img/logo.png')}/>
         
+            <DropShadow style={inputShadow}>
+                <Input
+                    placeholder="Name"
+                    value={name}
+                    placeholderTextColor="#fff"
+                />
+            </DropShadow>
+
             <DropShadow style={inputShadow}>
                 <Input
                     placeholder="Email"
@@ -39,13 +48,13 @@ const SignIn = () => {
             
             <SubmitButton activeOpacity={0.7}>
                 <SubmitText>
-                    Login
+                    Cadastrar
                 </SubmitText>
             </SubmitButton>
 
-            <Link onPress={() => navigation.navigate('SignUp')}>
+            <Link onPress={() => navigation.goBack()}>
                 <LinkText>
-                    Criar nova conta
+                    Já possui conta? faça o login
                 </LinkText>
             </Link>
             
@@ -55,4 +64,4 @@ const SignIn = () => {
     );
 }
 
-export default SignIn;
+export default SignUp;
