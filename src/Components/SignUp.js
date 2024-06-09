@@ -2,9 +2,13 @@ import DropShadow from "react-native-drop-shadow";
 import { Container, Input, Link, LinkText, Logo, SubmitButton, SubmitText, inputShadow } from "../styles/SignInStyle";
 
 import { useNavigation } from "@react-navigation/native";
-import { useState } from "react";
+import { useContext, useState } from "react";
+import MyContext from "../Context";
+import { ActivityIndicator } from "react-native";
 
 const SignUp = () => {
+    
+    const {SignUp, loading} = useContext(MyContext);
 
     const navigation = useNavigation();
 
@@ -12,6 +16,12 @@ const SignUp = () => {
     const [password, setPassword] = useState('');
     const [name, setName] = useState('');
 
+    const handleSignUp = () => {
+        if (name === '' || email === '' || password === '') alert('Todos os campos devem ser preenchidos');
+        SignUp(name, email, password);
+        navigation.goBack();
+    }
+    
     return(
 
         <Container behavior={Platform.OS === 'ios' ? 'padding' : ''}
@@ -25,6 +35,7 @@ const SignUp = () => {
                     placeholder="Name"
                     value={name}
                     placeholderTextColor="#fff"
+                    onChangeText={value => setName(value)}
                 />
             </DropShadow>
 
@@ -33,6 +44,7 @@ const SignUp = () => {
                     placeholder="Email"
                     value={email}
                     placeholderTextColor="#fff"
+                    onChangeText={value => setEmail(value)}
                 />
             </DropShadow>
             
@@ -41,15 +53,24 @@ const SignUp = () => {
                     placeholder="Senha"
                     placeholderTextColor="#fff"
                     value={password}
+                    onChangeText={value => setPassword(value)}
                     secureTextEntry={true}
                 />
             </DropShadow>
 
             
-            <SubmitButton activeOpacity={0.7}>
-                <SubmitText>
-                    Cadastrar
-                </SubmitText>
+            <SubmitButton activeOpacity={0.7} onPress={handleSignUp}>
+                
+                {
+                    loading  ? (
+                        <ActivityIndicator size={20} color="#000"/>
+                    ) : (
+                        <SubmitText>
+                            Cadastrar
+                        </SubmitText>
+                    )
+                }
+                
             </SubmitButton>
 
             <Link onPress={() => navigation.goBack()}>
