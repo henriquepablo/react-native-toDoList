@@ -3,11 +3,8 @@ import { createDrawerNavigator } from "@react-navigation/drawer";
 import { NavigationContainer } from "@react-navigation/native";
 import { useEffect, useState } from "react";
 
-import Tarefas from "./Tasks";
-import Todas from "./Alltasks";
 import MyContext from "../Context";
-
-const drawer = createDrawerNavigator();
+import Routes from "../routes";
 
 export default App = () => {
 
@@ -35,31 +32,11 @@ export default App = () => {
   }
 
   return (
-    <MyContext.Provider value={{backgroundColor, setBackgroundColor, isDark}}>
+    <MyContext.Provider value={{backgroundColor, setBackgroundColor, isDark, imgIcon, verifyIfIsDark}}>
       <NavigationContainer>
-        <drawer.Navigator
-          screenOptions={{
-            drawerStyle: {backgroundColor: isDark == false ? '#C5D4FF' : '#181A33' ,}, 
-            drawerActiveBackgroundColor: isDark == false ? '#acc1ff' : '#3F414D',
-            drawerLabelStyle: {color: isDark == false ? '#000' : '#fff'}
-          }}>
-          
-          <drawer.Screen name="Tarefas" component={Tarefas} 
-            options={{
-              
-              headerStyle: {backgroundColor: isDark == false ? '#C5D4FF' : '#181A33' ,}, 
-              
-              headerTintColor: isDark == false ? '#000' : '#fff',
-              
-              headerRight: () => (
-                <TouchableOpacity onPress={ verifyIfIsDark }>
-                  <Image source={imgIcon} style={{ marginRight: 10}}/>
-                </TouchableOpacity>
-              )
-            }}/>
-          
-          <drawer.Screen name="Todas" component={Todas} />
-        </drawer.Navigator>
+      
+        <Routes/>
+      
       </NavigationContainer>
     </MyContext.Provider>
   );
