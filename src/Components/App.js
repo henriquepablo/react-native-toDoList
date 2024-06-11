@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import MyContext from "../Context";
 import Routes from "../routes";
 import api from "../service/api";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export default App = () => {
 
@@ -12,6 +13,7 @@ export default App = () => {
   const [backgroundColor, setBackgroundColor] = useState('#181A33');
 
   const [loading, setLoading] = useState(false);
+  const [user, setUser] = useState(null);
 
   useEffect(() => {
     verifyIfIsDark()
@@ -49,8 +51,32 @@ export default App = () => {
     }
   }
 
+  async function signIn(email, password) {
+    setLoading(true);
+    try {
+      const response = await api.post('/user/login', {
+        email: email,
+        password: password
+      });  
+
+      const {id, name, token} = response.data;
+
+      api.defaults.headers['Authorization'] = `Bearer ${token}`;
+
+      await AsyncStorage.setItem('@token', token);
+
+      setUser({id, name, email});
+
+      setLoading(false);
+    } 
+    catch (error) {
+      console.log("Erro ao loggar: " + error);
+      setLoading(false);
+    }
+  }
+
   return (
-    <MyContext.Provider value={{backgroundColor, setBackgroundColor, isDark, imgIcon, verifyIfIsDark, SignUp, loading}}>
+    <MyContext.Provider value={{backgroundColor, setBackgroundColor, isDark, imgIcon, verifyIfIsDark, SignUp, loading, user, signIn, signed: !!user}}>
       <NavigationContainer>
       
         <Routes/>
