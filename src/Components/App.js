@@ -14,8 +14,38 @@ export default App = () => {
 
   const [loading, setLoading] = useState(false);
   const [user, setUser] = useState(null);
-
+  const [loadingUser, setLoadingUser] = useState(true);
+  const [looggedInUser, setLoggedInUser] = useState(false);
+  
   useEffect(() => {
+    async function loadStorage() {
+
+      const token = await AsyncStorage.getItem('@token');
+      
+      if (token) {
+        const response = await api.get('/user/data', {
+          
+          headers: {
+            'Authorization': `Bearer ${token}`
+          }
+
+        }).then((response) => {
+          api.defaults.headers['Authorization'] = `Bearer ${token}`;
+          setUser(response.data);
+          setLoggedInUser(true);
+          setLoadingUser(false);
+        })
+        .catch(() => {
+          setUser(null);
+          setLoadingUser(false);
+          
+        });        
+      }
+      setLoadingUser(false);
+      setUser(null);
+    }
+
+    loadStorage();
     verifyIfIsDark()
   }, []);
 
@@ -53,6 +83,7 @@ export default App = () => {
 
   async function signIn(email, password) {
     setLoading(true);
+    
     try {
       const response = await api.post('/user/login', {
         email: email,
@@ -76,7 +107,7 @@ export default App = () => {
   }
 
   return (
-    <MyContext.Provider value={{backgroundColor, setBackgroundColor, isDark, imgIcon, verifyIfIsDark, SignUp, loading, user, signIn, signed: !!user}}>
+    <MyContext.Provider value={{backgroundColor, setBackgroundColor, isDark, imgIcon, verifyIfIsDark, SignUp, loading, user, signIn, looggedInUser, loadingUser}}>
       <NavigationContainer>
       
         <Routes/>
