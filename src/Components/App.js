@@ -21,7 +21,6 @@ export default App = () => {
     async function loadStorage() {
 
       const token = await AsyncStorage.getItem('@token');
-      
       if (token) {
         const response = await api.get('/user/data', {
           
@@ -97,7 +96,7 @@ export default App = () => {
       await AsyncStorage.setItem('@token', token);
 
       setUser({id, name, email});
-
+      setLoggedInUser(true);
       setLoading(false);
     } 
     catch (error) {
