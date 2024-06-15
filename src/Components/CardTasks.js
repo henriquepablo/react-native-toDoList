@@ -8,6 +8,8 @@ import { styleCard } from "../styles/CardStyle";
 import { Swipeable } from "react-native-gesture-handler";
 
 import SwipeableRight from "./SwipeableRight";
+import api from "../service/api";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export default Card = (props) => {
 
@@ -16,25 +18,20 @@ export default Card = (props) => {
 
     const {isDark} = useContext(MyContext);
     
-    useEffect(() => {
-        deleteTask();
-    },[]);
+    useEffect(() => {deleteTask()}, []);
 
-    const deleteTask = () => {
+    async function deleteTask() {
         setIdTask(props.data.id);
-        fetch(`http://10.0.2.2:8080/tasks/${idTask}`, {
-            method: 'DELETE',
+
+        const token = await AsyncStorage.getItem('@token');
+
+        const response = await api.delete(`/tasks/${idTask}`, {
             headers: {
-                "Accept": "application/json",
-                "Content-Type": "application/json" 
-            },
-            body: JSON.stringify({})
+                'Authorization': `Bearer ${token}`
+            }
         })
-        .then(response => response.json())
-        .then(json => {
-            console.log(json);
-        })
-        .catch(err => console.log(err));
+        .catch(err => console.log('erro ao apagar tarefa: ', err))
+
     }
 
     return (
@@ -51,7 +48,7 @@ export default Card = (props) => {
                         <Image source={require('../img/edit.png')} />
                     </TouchableOpacity>
                     
-                    <TouchableOpacity onPress={deleteTask}>
+                    <TouchableOpacity onPress={() => deleteTask()}>
                         <Image source={require('../img/trash.png')} />
                     </TouchableOpacity>
                     

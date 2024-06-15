@@ -38,7 +38,7 @@ export default Tasks = () => {
                 </Title>
 
                 <TitleDesc TitleDesc={isDark}>
-                    Suas tarefas 
+                    {listTasks.length == 0 ? 'Não há tarefas' : 'Suas tarefas'} 
                 </TitleDesc>
             </ContainerDay>
 
