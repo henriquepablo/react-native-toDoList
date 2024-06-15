@@ -7,29 +7,30 @@ import { shadowInput } from "../styles/ModalStyle";
 
 import MyContext from "../Context";
 import DropShadow from "react-native-drop-shadow";
+import api from "../service/api";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { format } from "date-fns";
 
 export default MyModal = (props) => {
 
-    const {isDark} = useContext(MyContext);
+    const {isDark, user} = useContext(MyContext);
 
     const [tasks, setTasks] = useState('');
 
-    const createTask = () => {
-        fetch('http://10.0.2.2:8080/tasks', {
-            method: 'POST',
+    async function createTask() {
+        
+        const token = await AsyncStorage.getItem('@token');
+
+        const response = await api.post("/tasks/register/task", {
             headers: {
-                "Accept": "application/json",
-                "Content-Type": "application/json" 
-            },
-            body: JSON.stringify({
-            taks: tasks,})
-        })
-        .then(response => response.json())
-        .then(json => {
-            console.log(json);
-            alert('Tarefa cadastrada');
-        })
-        .catch(err => console.log(err));
+                'Authorization': `Bearer ${token}`
+            }, 
+            tasks: tasks,
+            data: format(new Date(), "yyyy-MM-dd"),
+            user: {
+                id: user.id
+            }
+        }).catch(err => console.log(err))
     }
 
     return (
