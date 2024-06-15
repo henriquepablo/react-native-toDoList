@@ -38,7 +38,7 @@ export default Tasks = () => {
                 </Title>
 
                 <TitleDesc TitleDesc={isDark}>
-                    Suas tarefas de hoje
+                    Suas tarefas 
                 </TitleDesc>
             </ContainerDay>
 
