@@ -34,7 +34,7 @@ export default Tasks = () => {
 
             <ContainerDay >
                 <Title TitleDay={isDark} > 
-                    Segunda - Feira
+                    {new Date().toLocaleDateString('pt-BR', {weekday: 'long'}).replace('s', 'S')}
                 </Title>
 
                 <TitleDesc TitleDesc={isDark}>
