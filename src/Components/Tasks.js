@@ -4,10 +4,12 @@ import MyContext from "../Context";
 import CardTasks from "./CardTasks";
 import { Image, Modal, FlatList} from "react-native";
 import MyModal from "./Modal";
+import api from "../service/api";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export default Tasks = () => {
 
-    const {backgroundColor, isDark} = useContext(MyContext);
+    const {backgroundColor, isDark, user} = useContext(MyContext);
     const [openModal, setOpenModal] = useState(false);
     const [listTasks, setListTasks] = useState([]);
 
@@ -15,13 +17,16 @@ export default Tasks = () => {
         loadTasks();
     },[listTasks]);
 
-    const loadTasks = () => {
-        fetch('http://10.0.2.2:8080/tasks')
-        .then(response => response.json())
-        .then(json => {
-            setListTasks(json)
+    async function loadTasks() {
+        const token = await AsyncStorage.getItem('@token');
+
+        const response = await api.get(`/tasks/${user.id}`, {
+            headers: {
+                'Authorization': `Bearer ${token}`
+              }
         })
-        .catch(err => console.log(err))
+        .then(response => setListTasks(response.data))
+        .catch(err => console.log(err));
     }
 
     return (

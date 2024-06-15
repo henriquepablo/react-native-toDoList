@@ -44,7 +44,7 @@ export default Card = (props) => {
                     <Switch onValueChange={(value) => setIsEnabled(value)} value={isEnabled} />
                     
                     <TextTasks text={isDark} complete={isEnabled}>
-                        {props.data.taks}
+                        {props.data.tasks}
                     </TextTasks>
 
                     <TouchableOpacity onPress={() => console.log(props.data.id)}>

@@ -39,9 +39,9 @@ export default App = () => {
           setLoadingUser(false);
           
         });        
-      }
+      }else setUser(null);
       setLoadingUser(false);
-      setUser(null);
+      
     }
 
     loadStorage();
