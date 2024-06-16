@@ -14,15 +14,11 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 export default Card = (props) => {
 
     const [isEnabled, setIsEnabled] = useState(false);
-    const [idTask, setIdTask] = useState();
 
     const {isDark} = useContext(MyContext);
     
-    useEffect(() => {deleteTask()}, []);
-
-    async function deleteTask() {
-        setIdTask(props.data.id);
-
+    async function deleteTask(idTask) {
+        
         const token = await AsyncStorage.getItem('@token');
 
         const response = await api.delete(`/tasks/${idTask}`, {
@@ -44,11 +40,11 @@ export default Card = (props) => {
                         {props.data.tasks}
                     </TextTasks>
 
-                    <TouchableOpacity onPress={() => console.log(props.data.id)}>
+                    <TouchableOpacity onPress={() => console.log(props.data.tasks)}>
                         <Image source={require('../img/edit.png')} />
                     </TouchableOpacity>
                     
-                    <TouchableOpacity onPress={() => deleteTask()}>
+                    <TouchableOpacity onPress={() => deleteTask(props.data.id)}>
                         <Image source={require('../img/trash.png')} />
                     </TouchableOpacity>
                     
