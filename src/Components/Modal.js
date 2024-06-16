@@ -1,5 +1,5 @@
 import { useContext, useState } from "react";
-import { Image } from "react-native";
+import { Image, Keyboard } from "react-native";
 
 import { ViewModal, ContainerModal, ViewTextInput, Input, ViewTouchableModal} from "../styles/ModalStyle";
 import { ViewTouchable, ViewModalBtn } from "../styles/TaksStyle";
@@ -30,7 +30,9 @@ export default MyModal = (props) => {
             user: {
                 id: user.id
             }
-        }).catch(err => console.log(err))
+        }).catch(err => console.log(err));
+        
+        Keyboard.dismiss();
     }
 
     return (
