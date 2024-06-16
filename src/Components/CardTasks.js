@@ -1,4 +1,4 @@
-import { Image, Switch, TouchableOpacity, View, Text, Alert } from "react-native";
+import { Image, Switch, TouchableOpacity, View, Text, Alert, Modal } from "react-native";
 import { ViewCard, TextTasks } from "../styles/CardStyle";
 import { useContext, useEffect, useState } from "react";
 import MyContext from "../Context";
@@ -11,12 +11,20 @@ import SwipeableRight from "./SwipeableRight";
 import api from "../service/api";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
+
+import ModalEditTask from "./ModalEditTask";
+
 export default Card = (props) => {
 
     const [isEnabled, setIsEnabled] = useState(false);
 
-    const {isDark, setOpenModal} = useContext(MyContext);
+    const {isDark} = useContext(MyContext);
+
+    const [openModal, setOpenModal] = useState(false);
     
+    const [idTask, setIdTask] = useState('');
+    const [task, setTask] = useState('');
+
     async function deleteTask(idTask) {
         
         const token = await AsyncStorage.getItem('@token');
@@ -40,7 +48,11 @@ export default Card = (props) => {
                         {props.data.tasks}
                     </TextTasks>
 
-                    <TouchableOpacity onPress={() => setOpenModal(true)}>
+                    <TouchableOpacity onPress={() => {
+                        setOpenModal(true);
+                        setIdTask(props.data.id);
+                        setTask(props.data.tasks);
+                    }}>
                         <Image source={require('../img/edit.png')} />
                     </TouchableOpacity>
                     
@@ -50,6 +62,10 @@ export default Card = (props) => {
                     
                 </ViewCard>
             </Swipeable>
+
+            <Modal animationType="slide" visible={openModal} transparent={true}>
+                <ModalEditTask close={() => setOpenModal(false)} id={idTask} task={task}/>
+            </Modal>
         </DropShadow>
 
     );
