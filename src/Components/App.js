@@ -105,8 +105,16 @@ export default App = () => {
     }
   }
 
+  async function logout() {
+    await AsyncStorage.clear()
+      .then(() => {
+        setLoggedInUser(false);
+      })
+      .catch(err => console.log('erro ao deslogar usuário: ' + err));
+  }
+
   return (
-    <MyContext.Provider value={{backgroundColor, setBackgroundColor, isDark, imgIcon, verifyIfIsDark, SignUp, loading, user, signIn, looggedInUser, loadingUser}}>
+    <MyContext.Provider value={{backgroundColor, setBackgroundColor, isDark, imgIcon, verifyIfIsDark, SignUp, loading, user, signIn, looggedInUser, loadingUser, logout}}>
       <NavigationContainer>
       
         <Routes/>

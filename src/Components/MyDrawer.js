@@ -1,11 +1,21 @@
 import { DrawerContentScrollView, DrawerItemList } from "@react-navigation/drawer";
 import { ContainerTitle, Logout, Title, TitleLogout } from "../styles/MyDrawerStyle";
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import MyContext from "../Context";
 
 const MyDrawer = (props) => {
 
-    const {user, isDark} = useContext(MyContext);
+    const {user, isDark, logout} = useContext(MyContext);
+
+    const handleLogout = () => {
+        logout();
+    }
+
+    useEffect(() => {
+        return() => {
+            
+        }
+    })
 
     return (
         <DrawerContentScrollView >
@@ -15,7 +25,7 @@ const MyDrawer = (props) => {
 
             <DrawerItemList {...props} />
 
-            <Logout activeOpacity={0.5}>
+            <Logout activeOpacity={0.5} onPress={handleLogout}>
                 <TitleLogout >
                     Sair
                 </TitleLogout>
