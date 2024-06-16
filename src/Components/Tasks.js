@@ -12,6 +12,7 @@ export default Tasks = () => {
     const {backgroundColor, isDark, user} = useContext(MyContext);
     const [openModal, setOpenModal] = useState(false);
     const [listTasks, setListTasks] = useState([]);
+    let weekday = new Date().toLocaleDateString('pt-BR', {weekday: 'long'});
 
     useEffect(() => {
         loadTasks();
@@ -34,7 +35,7 @@ export default Tasks = () => {
 
             <ContainerDay >
                 <Title TitleDay={isDark} > 
-                    {new Date().toLocaleDateString('pt-BR', {weekday: 'long'}).replace('s', 'S')}
+                    {weekday[0].toUpperCase() + weekday.slice(1)}
                 </Title>
 
                 <TitleDesc TitleDesc={isDark}>
