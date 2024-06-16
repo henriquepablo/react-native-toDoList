@@ -7,6 +7,7 @@ import { TouchableOpacity, Image } from "react-native";
 
 import Todas from "../Components/Alltasks";
 import Tarefas from "../Components/Tasks";
+import MyDrawer from "../Components/MyDrawer";
 
 const drawer = createDrawerNavigator();
 
@@ -20,7 +21,8 @@ const AppRoutes = () => {
                 drawerStyle: {backgroundColor: isDark == false ? '#C5D4FF' : '#181A33' ,}, 
                 drawerActiveBackgroundColor: isDark == false ? '#acc1ff' : '#3F414D',
                 drawerLabelStyle: {color: isDark == false ? '#000' : '#fff'}
-            }}>
+            }}
+            drawerContent={props => <MyDrawer {...props}/>}>
             
             <drawer.Screen name="Tarefas" component={Tarefas} 
                 options={{
