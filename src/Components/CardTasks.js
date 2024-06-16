@@ -15,7 +15,7 @@ export default Card = (props) => {
 
     const [isEnabled, setIsEnabled] = useState(false);
 
-    const {isDark} = useContext(MyContext);
+    const {isDark, setOpenModal} = useContext(MyContext);
     
     async function deleteTask(idTask) {
         
@@ -40,7 +40,7 @@ export default Card = (props) => {
                         {props.data.tasks}
                     </TextTasks>
 
-                    <TouchableOpacity onPress={() => console.log(props.data.tasks)}>
+                    <TouchableOpacity onPress={() => setOpenModal(true)}>
                         <Image source={require('../img/edit.png')} />
                     </TouchableOpacity>
                     

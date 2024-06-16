@@ -16,6 +16,8 @@ export default App = () => {
   const [user, setUser] = useState(null);
   const [loadingUser, setLoadingUser] = useState(true);
   const [looggedInUser, setLoggedInUser] = useState(false);
+
+  const [openModal, setOpenModal] = useState(false);
   
   useEffect(() => {
     async function loadStorage() {
@@ -114,7 +116,7 @@ export default App = () => {
   }
 
   return (
-    <MyContext.Provider value={{backgroundColor, setBackgroundColor, isDark, imgIcon, verifyIfIsDark, SignUp, loading, user, signIn, looggedInUser, loadingUser, logout}}>
+    <MyContext.Provider value={{backgroundColor, setBackgroundColor, isDark, imgIcon, verifyIfIsDark, SignUp, loading, user, signIn, looggedInUser, loadingUser, logout, openModal, setOpenModal}}>
       <NavigationContainer>
       
         <Routes/>

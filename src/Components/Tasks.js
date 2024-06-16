@@ -9,8 +9,8 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export default Tasks = () => {
 
-    const {backgroundColor, isDark, user} = useContext(MyContext);
-    const [openModal, setOpenModal] = useState(false);
+    const {backgroundColor, isDark, user, openModal, setOpenModal} = useContext(MyContext);
+    
     const [listTasks, setListTasks] = useState([]);
     let weekday = new Date().toLocaleDateString('pt-BR', {weekday: 'long'});
 
