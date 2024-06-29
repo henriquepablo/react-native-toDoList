@@ -1,11 +1,12 @@
-import { Container, ContainerDay, Title, TitleDesc, ViewModalBtn, ViewTouchable } from "../styles/TaksStyle";
+import { Container, ContainerDay, Title, TitleDesc, TouchableDate, ViewModalBtn, ViewTitle, ViewTouchable } from "../styles/TaksStyle";
 import { useContext, useEffect, useState } from "react";
 import MyContext from "../Context";
 import CardTasks from "./CardTasks";
-import { Image, Modal, FlatList} from "react-native";
+import { Image, Modal, FlatList, View, TouchableOpacity} from "react-native";
 import MyModal from "./Modal";
 import api from "../service/api";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import Icon from "react-native-vector-icons/MaterialIcons";
 
 export default Tasks = () => {
 
@@ -37,10 +38,16 @@ export default Tasks = () => {
                 <Title TitleDay={isDark} > 
                     {weekday[0].toUpperCase() + weekday.slice(1)}
                 </Title>
+                
+                <ViewTitle >
+                    <TitleDesc TitleDesc={isDark}>
+                        {listTasks.length == 0 ? 'Não há tarefas' : 'Suas tarefas'}
+                    </TitleDesc>
 
-                <TitleDesc TitleDesc={isDark}>
-                    {listTasks.length == 0 ? 'Não há tarefas' : 'Suas tarefas'} 
-                </TitleDesc>
+                    <TouchableDate activeOpacity={0.3} onPress={() => alert('teste')}> 
+                        <Icon name="event" size={30} color={isDark == true ? "#fff" : "#000"}/>
+                    </TouchableDate>
+                </ViewTitle>
             </ContainerDay>
 
             <FlatList 
