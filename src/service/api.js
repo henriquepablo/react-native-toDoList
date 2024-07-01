@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const api = axios.create({
-    baseURL: 'https://lacerda.up.railway.app'
+    baseURL: 'http://192.168.15.8:8080'
 });
 
 export default api;

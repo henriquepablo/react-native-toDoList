@@ -7,12 +7,15 @@ import MyModal from "./Modal";
 import api from "../service/api";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import Icon from "react-native-vector-icons/MaterialIcons";
+import CalendarModal from "./CalendarModal";
 
 export default Tasks = () => {
 
     const {backgroundColor, isDark, user, openModal, setOpenModal} = useContext(MyContext);
     
     const [listTasks, setListTasks] = useState([]);
+    const [modalCalendar, setModalCalendar] = useState(false);
+
     let weekday = new Date().toLocaleDateString('pt-BR', {weekday: 'long'});
 
     useEffect(() => {
@@ -44,7 +47,7 @@ export default Tasks = () => {
                         {listTasks.length == 0 ? 'Não há tarefas' : 'Suas tarefas'}
                     </TitleDesc>
 
-                    <TouchableDate activeOpacity={0.3} onPress={() => alert('teste')}> 
+                    <TouchableDate activeOpacity={0.3} onPress={() => setModalCalendar(true)}> 
                         <Icon name="event" size={30} color={isDark == true ? "#fff" : "#000"}/>
                     </TouchableDate>
                 </ViewTitle>
@@ -64,6 +67,12 @@ export default Tasks = () => {
 
             <Modal animationType="slide" visible={openModal} transparent={true}>
                 <MyModal close={() => setOpenModal(false)} />
+            </Modal>
+
+            <Modal animationType="fade" visible={modalCalendar} transparent={true}>
+                <CalendarModal 
+                    setVisible={ () => setModalCalendar(false)}
+                />
             </Modal>
         </Container>
     );
