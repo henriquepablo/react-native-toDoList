@@ -15,6 +15,8 @@ export default Tasks = () => {
     
     const [listTasks, setListTasks] = useState([]);
     const [modalCalendar, setModalCalendar] = useState(false);
+    const [aux, setAux] = useState(false);
+    const [list, setList] = useState([]);
 
     let weekday = new Date().toLocaleDateString('pt-BR', {weekday: 'long'});
 
@@ -32,6 +34,22 @@ export default Tasks = () => {
         })
         .then(response => setListTasks(response.data))
         .catch(err => console.log(err));
+    }
+
+    async function filterDateTasks(dateSelected) {
+        const token = await AsyncStorage.getItem('@token');
+
+        const respone = await api.post('/tasks/find/task/date', {
+            date: dateSelected,
+
+            headers: {
+                'Authorization': `Bearer ${token}`
+            }
+        })
+        .then(res => {
+            setList(res.data);
+            setAux(true);
+        });
     }
 
     return (
@@ -54,7 +72,7 @@ export default Tasks = () => {
             </ContainerDay>
 
             <FlatList 
-                data={listTasks}
+                data={aux == false ? listTasks : list}
                 keyExtractor={(item) => item.id}
                 renderItem={({item}) => <CardTasks data={item} />}
             />
@@ -72,6 +90,7 @@ export default Tasks = () => {
             <Modal animationType="fade" visible={modalCalendar} transparent={true}>
                 <CalendarModal 
                     setVisible={ () => setModalCalendar(false)}
+                    handleFilter={filterDateTasks}
                 />
             </Modal>
         </Container>

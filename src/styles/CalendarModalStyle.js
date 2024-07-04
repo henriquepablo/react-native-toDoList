@@ -19,7 +19,7 @@ export const ButtonFilter = styled.TouchableOpacity`
 
 export const ModalContent = styled.View`
     flex: 2;
-    justify-content: center;
+    justify-content: space-evenly;
     padding: 14px;
     background-color: #fff;
 `
