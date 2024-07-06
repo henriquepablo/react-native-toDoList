@@ -4,7 +4,7 @@ import { Container, Input, Link, LinkText, Logo, SubmitButton, SubmitText, input
 import { useNavigation } from "@react-navigation/native";
 import { useContext, useState } from "react";
 import MyContext from "../Context";
-import { ActivityIndicator } from "react-native";
+import { ActivityIndicator, Alert, Platform } from "react-native";
 
 const SignIn = () => {
 
@@ -16,7 +16,7 @@ const SignIn = () => {
     const {signIn, user, loading} = useContext(MyContext);
 
     const handleLogin = () => {
-        if (email == '' || password == '' ) return alert('Preencha todos os campos');
+        if (email == '' || password == '' ) return Alert.alert('Preencha todos os campos');
         signIn(email, password);
     }
 
